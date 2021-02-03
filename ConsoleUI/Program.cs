@@ -43,6 +43,13 @@ namespace ConsoleUI
             {
                 Console.WriteLine(car.Description);
             }
+
+            
+
+            Console.WriteLine("GETBYID -------------------");
+           
+                Console.WriteLine((carManager.GetById(2)).Description);
+            
         }
     }
 }
