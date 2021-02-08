@@ -1,5 +1,7 @@
-﻿using DataAccess.Abstract;
+﻿using Core.DataAccess.EntityFramework;
+using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,60 +11,30 @@ using System.Text;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfCarDal : ICarDal
+    public class EfCarDal : EfEntityRepositoryBase<Car, RentACar_ReCapContext>, ICarDal
     {
-        public void Add(Car entity)
-        {
-            using (RentACar_ReCapContext context = new RentACar_ReCapContext())
-            {
-                if (entity.Description.Length >= 2 && entity.DailyPrice > 0)
-                {
-                    var addedEntity = context.Entry(entity);
-                    addedEntity.State = EntityState.Added;
-                    context.SaveChanges();
-                }
-                else
-                {
-                    Console.WriteLine("\nEklenen araba açıklaması en az 2 harften oluşmalıdır. / Araba günlük fiyatı 0 dan büyük olmalıdır.\n");
-                }
-            }
-        }
+        //yalnızca ürünü ilgilendiren işlemleri burada yapıcaz
+        //Ürüne ait ayrıntılı listeleme
+        //join işlemlerini burada yazıcaz
 
-        public void Delete(Car entity)
+        public List<CarDetailDto> GetAllCarDetails()
         {
-            using (RentACar_ReCapContext context = new RentACar_ReCapContext())
+            using (RentACar_ReCapContext context=new RentACar_ReCapContext())
             {
-                var deletedEntity = context.Entry(entity);
-                deletedEntity.State = EntityState.Deleted;
-                context.SaveChanges();
-            }
-        }
+                var result = from c in context.Cars
+                             join b in context.Brands
+                             on c.BrandId equals b.Id
+                             join co in context.Colors
+                             on c.ColorId equals co.Id
+                             select new CarDetailDto
+                             {
+                                 CarName = c.Description,
+                                 BrandName = b.Name,
+                                 ColorName = co.Name,
+                                 DailyPrice = c.DailyPrice
+                             };
+                return result.ToList();
 
-        public Car Get(Expression<Func<Car, bool>> filter)
-        {
-            using (RentACar_ReCapContext context = new RentACar_ReCapContext())
-            {
-                return context.Set<Car>().SingleOrDefault(filter);
-            }
-        }
-
-        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
-        {
-            using (RentACar_ReCapContext context = new RentACar_ReCapContext())
-            {
-                return filter == null
-                    ? context.Set<Car>().ToList()
-                    : context.Set<Car>().Where(filter).ToList();
-            }
-        }
-
-        public void Update(Car entity)
-        {
-            using (RentACar_ReCapContext context = new RentACar_ReCapContext())
-            {
-                var updatedEntity = context.Entry(entity);
-                updatedEntity.State = EntityState.Modified;
-                context.SaveChanges();
             }
         }
     }
