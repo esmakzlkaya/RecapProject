@@ -21,38 +21,47 @@ namespace ConsoleUI
             //  GetAllCars(carManager);
             //  GetCarById(carManager);
 
-            foreach (var car in carManager.GetAllCarDetails())
-            {
-                Console.WriteLine(car.CarName+" - "+ car.BrandName + " - "+ car.ColorName + " - " + car.DailyPrice+"\n");
-            }
-            
+            GetAllCarDetails(carManager);
 
 
 
-          // /* AddCar(carManager);
-          //  UpdateCar(carManager);
-          //  DeleteCar(carManager);*/
 
-          //  Console.WriteLine("\n******************************\n");
+            // /* AddCar(carManager);
+            //  UpdateCar(carManager);
+            //  DeleteCar(carManager);*/
 
-          //  Console.WriteLine("\n----------Color---------\n");
-          //  GetAllColors(colorManager);
-          //  GetCarsByColorId(carManager);
-          //  GetColorById(colorManager);
-          // /* AddColor(colorManager);
-          //  UpdateColor(colorManager);
-          //  DeleteColor(colorManager);*/
+            //  Console.WriteLine("\n******************************\n");
 
-          //  Console.WriteLine("\n******************************\n");
+            //  Console.WriteLine("\n----------Color---------\n");
+            //  GetAllColors(colorManager);
+            //  GetCarsByColorId(carManager);
+            //  GetColorById(colorManager);
+            // /* AddColor(colorManager);
+            //  UpdateColor(colorManager);
+            //  DeleteColor(colorManager);*/
 
-          //  Console.WriteLine("\n----------Brand---------\n");
-          //  GetAllBrands(brandManager);
-          //  GetCarsByBrandId(carManager);
-          //  GetBrandById(brandManager);
-          ///*  AddBrand(brandManager);
-          //  UpdateBrand(brandManager);
-          //  DeleteBrand(brandManager);*/
+            //  Console.WriteLine("\n******************************\n");
+
+            //  Console.WriteLine("\n----------Brand---------\n");
+            //  GetAllBrands(brandManager);
+            //  GetCarsByBrandId(carManager);
+            //  GetBrandById(brandManager);
+            ///*  AddBrand(brandManager);
+            //  UpdateBrand(brandManager);
+            //  DeleteBrand(brandManager);*/
         }
+
+        private static void GetAllCarDetails(CarManager carManager)
+        {
+            var result = carManager.GetAllCarDetails();
+
+            foreach (var car in result.Data)
+            {
+                Console.WriteLine(car.CarName + " - " + car.BrandName + " - " + car.ColorName + " - " + car.DailyPrice + "\n");
+            }
+            Console.WriteLine(result.Message);
+        }
+
         private static void AddBrand(BrandManager brandManager)
         {
             brandManager.Add(new Brand
@@ -61,30 +70,36 @@ namespace ConsoleUI
                 Name = "Toyota"
             });
             Console.WriteLine("\n New Brand Added----------------\n");
-            foreach (var brand in brandManager.GetAll())
+            var result = brandManager.GetAll();
+            foreach (var brand in result.Data)
             {
                 Console.WriteLine(brand.Name);
             }
+            Console.WriteLine(result.Message);
         }
         private static void UpdateBrand(BrandManager brandManager)
         {
             brandManager.Update(new Brand {Id=4,Name = "Ford" });
 
             Console.WriteLine("\n Brand Updated----------------\n");
-            foreach (var brand in brandManager.GetAll())
+            var result = brandManager.GetAll();
+            foreach (var brand in result.Data)
             {
                 Console.WriteLine(brand.Name);
             }
+            Console.WriteLine(result.Message);
         }
         private static void DeleteBrand(BrandManager brandManager)
         {
             brandManager.Delete(new Brand { Id = 4 });
 
             Console.WriteLine("\n Brand Deleted----------------\n");
-            foreach (var brand in brandManager.GetAll())
+            var result = brandManager.GetAll();
+            foreach (var brand in result.Data)
             {
                 Console.WriteLine(brand.Name);
             }
+            Console.WriteLine(result.Message);
         }
         private static void AddCar(CarManager carManager)
         {
@@ -98,30 +113,36 @@ namespace ConsoleUI
                 Description = "Hatalı Ekleme Deneme"
             });
             Console.WriteLine("\n New Car Added----------------\n");
-            foreach (var car in carManager.GetAll())
+            var result = carManager.GetAll();
+            foreach (var car in result.Data)
             {
                 Console.WriteLine(car.Description);
             }
+            Console.WriteLine(result.Message);
         }
         private static void UpdateCar(CarManager carManager)
         {
             carManager.Update(new Car { Id = 9, DailyPrice = 550, Description = "ZAMLANDI" });
 
             Console.WriteLine("\n Car Updated----------------\n");
-            foreach (var car in carManager.GetAll())
+            var result = carManager.GetAll();
+            foreach (var car in result.Data)
             {
                 Console.WriteLine(car.Description);
             }
+            Console.WriteLine(result.Message);
         }
         private static void DeleteCar(CarManager carManager)
         {
             carManager.Delete(new Car { Id = 9 });
 
             Console.WriteLine("\n Car Deleted----------------\n");
-            foreach (var car in carManager.GetAll())
+            var result = carManager.GetAll();
+            foreach (var car in result.Data)
             {
                 Console.WriteLine(car.Description);
             }
+            Console.WriteLine(result.Message);
         }
         private static void AddColor(ColorManager colorManager)
         {
@@ -131,53 +152,65 @@ namespace ConsoleUI
                 Name="Yellow" 
             });
             Console.WriteLine("\n New Color Added----------------\n");
-            foreach (var color in colorManager.GetAll())
+            var result = colorManager.GetAll();
+            foreach (var color in result.Data)
             {
                 Console.WriteLine(color.Name);
             }
+            Console.WriteLine(result.Message);
         }
         private static void UpdateColor(ColorManager colorManager)
         {
             colorManager.Update(new Color {Id=3, Name = "Sarı" });
 
             Console.WriteLine("\n Color Updated----------------\n");
-            foreach (var color in colorManager.GetAll())
+            var result = colorManager.GetAll();
+            foreach (var color in result.Data)
             {
                 Console.WriteLine(color.Name);
             }
+            Console.WriteLine(result.Message);
         }
         private static void DeleteColor(ColorManager colorManager)
         {
             colorManager.Delete(new Color { Id = 3 });
 
             Console.WriteLine("\n Color Deleted----------------\n");
-            foreach (var color in colorManager.GetAll())
+            var result = colorManager.GetAll();
+            foreach (var color in result.Data)
             {
                 Console.WriteLine(color.Name);
             }
+            Console.WriteLine(result.Message);
         }
 
         private static void GetCarsByBrandId(CarManager carManager)
         {
             Console.WriteLine("\nGetCarsByBrandId----------------\n");
-            foreach (var color in carManager.GetCarsByBrandId(2))
+            var result = carManager.GetCarsByBrandId(2);
+            foreach (var color in result.Data)
             {
                 Console.WriteLine(color.Description);
             }
+            Console.WriteLine(result.Message);
         }
 
         private static void GetAllBrands(BrandManager brandManager)
         {
             Console.WriteLine("\nGetAllBrands----------------\n");
-            foreach (var brand in brandManager.GetAll())
+            var result = brandManager.GetAll();
+            foreach (var brand in result.Data)
             {
                 Console.WriteLine(brand.Name);
             }
+            Console.WriteLine(result.Message);
         }
         private static void GetBrandById(BrandManager brandManager)
         {
+            var result = brandManager.GetById(2);
             Console.WriteLine("\nGetById----------------\n");
-            Console.WriteLine(brandManager.GetById(2).Name);
+            Console.WriteLine(result.Data.Name);
+            Console.WriteLine(result.Message);
         }
 
         /////////////////////////////////////////////
@@ -185,15 +218,19 @@ namespace ConsoleUI
         private static void GetAllCars(CarManager carManager)
         {
             Console.WriteLine("\nGetAllCars----------------\n");
-            foreach (var car in carManager.GetAll())
+            var result = carManager.GetAll();
+            foreach (var car in result.Data)
             {
                 Console.WriteLine(car.Description);
             }
+            Console.WriteLine(result.Message);
         }
         private static void GetCarById(CarManager carManager)
         {
+            var result = carManager.GetById(2);
             Console.WriteLine("\nGetById----------------\n");
-            Console.WriteLine(carManager.GetById(2).Description);
+            Console.WriteLine(result.Data.Description);
+            Console.WriteLine(result.Message);
         }
 
         /////////////////////////////////////////////
@@ -201,24 +238,30 @@ namespace ConsoleUI
         private static void GetCarsByColorId(CarManager carManager)
         {
             Console.WriteLine("\nGetCarsByColorId----------------\n");
-            foreach (var color in carManager.GetCarsByColorId(1))
+            var result = carManager.GetCarsByColorId(1);
+            foreach (var color in result.Data)
             {
                 Console.WriteLine(color.Description);
             }
+            Console.WriteLine(result.Message);
         }
 
         private static void GetAllColors(ColorManager colorManager)
         {
             Console.WriteLine("\nGetAllColors----------------\n");
-            foreach (var color in colorManager.GetAll())
+            var result = colorManager.GetAll();
+            foreach (var color in result.Data)
             {
                 Console.WriteLine(color.Name);
             }
+            Console.WriteLine(result.Message);
         }
         private static void GetColorById(ColorManager colorManager)
         {
+            var result = colorManager.GetById(2);
             Console.WriteLine("\nGetById----------------\n");
-            Console.WriteLine(colorManager.GetById(2).Name);
+            Console.WriteLine(result.Data.Name);
+            Console.WriteLine(result.Message);
         }
 
     }
