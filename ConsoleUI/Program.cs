@@ -16,15 +16,22 @@ namespace ConsoleUI
             CarManager carManager = new CarManager(new EfCarDal());
             ColorManager colorManager = new ColorManager(new EfColorDal());
             BrandManager brandManager = new BrandManager(new EfBrandDal());
+            UserManager userManager = new UserManager(new EfUserDal());
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
 
-            //  Console.WriteLine("\n-----------Car-----------\n");
-            //  GetAllCars(carManager);
-            //  GetCarById(carManager);
+            // userManager.Add(new User { FirstName="Fix  ", LastName="Oto", Email="fixoto@gmail.com", Password="11fix"});
+            //  customerManager.Add(new Customer { UserId = 1, CompanyName = "Fix Oto" });
 
-            GetAllCarDetails(carManager);
+            // AddUser(userManager);
+            // AddCustomer(customerManager);
+             AddRental(rentalManager);
+           // GetAllRentalDetails(rentalManager);
 
-
-
+            // Console.WriteLine("\n-----------Car-----------\n");
+            // GetAllCars(carManager);
+            // GetCarById(carManager);
+            // GetAllCarDetails(carManager);
 
             // /* AddCar(carManager);
             //  UpdateCar(carManager);
@@ -50,7 +57,54 @@ namespace ConsoleUI
             //  UpdateBrand(brandManager);
             //  DeleteBrand(brandManager);*/
         }
+        private static void GetAllRentalDetails(RentalManager rentalManager)
+        {
+            var result = rentalManager.GetAllRentalDetails();
 
+            foreach (var rental in result.Data)
+            {
+                Console.WriteLine(rental.Id + " - " + rental.CarId + " - " + rental.CarName + " - " + rental.CustomerName + " - " + rental.DailyPrice + " - " + rental.RentDate + " - " + rental.ReturnDate + "\n");
+            }
+            Console.WriteLine(result.Message);
+        }
+        private static void AddUser(UserManager userManager)
+        {
+            var result = userManager.Add(new User
+            {
+                Id = 2,
+                FirstName = "Çetinkaya  ",
+                LastName = "Rent A Car",
+                Email = "cetinkayarentacar@gmail.com",
+                Password = "22cetinkaya"
+
+            });
+
+            Console.WriteLine(result.Message);
+        }
+        private static void AddCustomer(CustomerManager customerManager)
+        {
+            var result = customerManager.Add(new Customer
+            {
+                Id = 2,
+                UserId = 2,
+                CompanyName = "Çetinkaya Rent A Car"
+            });
+
+            Console.WriteLine(result.Message);
+        }
+        private static void AddRental(RentalManager rentalManager)
+        {
+            var result = rentalManager.Add(new Rental
+            {
+                Id = 18,
+                CarId = 1,
+                CustomerId = 2,
+                RentDate = DateTime.Now,
+                ReturnDate=null
+            });
+
+            Console.WriteLine(result.Message);
+        }
         private static void GetAllCarDetails(CarManager carManager)
         {
             var result = carManager.GetAllCarDetails();
@@ -66,7 +120,7 @@ namespace ConsoleUI
         {
             brandManager.Add(new Brand
             {
-                Id=4,
+                Id = 4,
                 Name = "Toyota"
             });
             Console.WriteLine("\n New Brand Added----------------\n");
@@ -79,7 +133,7 @@ namespace ConsoleUI
         }
         private static void UpdateBrand(BrandManager brandManager)
         {
-            brandManager.Update(new Brand {Id=4,Name = "Ford" });
+            brandManager.Update(new Brand { Id = 4, Name = "Ford" });
 
             Console.WriteLine("\n Brand Updated----------------\n");
             var result = brandManager.GetAll();
@@ -105,7 +159,7 @@ namespace ConsoleUI
         {
             carManager.Add(new Car
             {
-                Id=9,
+                Id = 9,
                 BrandId = 3,
                 ColorId = 1,
                 ModelYear = 2016,
@@ -148,8 +202,8 @@ namespace ConsoleUI
         {
             colorManager.Add(new Color
             {
-                Id=3,
-                Name="Yellow" 
+                Id = 3,
+                Name = "Yellow"
             });
             Console.WriteLine("\n New Color Added----------------\n");
             var result = colorManager.GetAll();
@@ -161,7 +215,7 @@ namespace ConsoleUI
         }
         private static void UpdateColor(ColorManager colorManager)
         {
-            colorManager.Update(new Color {Id=3, Name = "Sarı" });
+            colorManager.Update(new Color { Id = 3, Name = "Sarı" });
 
             Console.WriteLine("\n Color Updated----------------\n");
             var result = colorManager.GetAll();
