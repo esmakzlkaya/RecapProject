@@ -19,7 +19,7 @@ namespace WebAPI.Controllers
         {
             _brandService = brandService;
         }
-        
+
         [HttpGet("getall")]
         public IActionResult GetAll()
         {

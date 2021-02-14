@@ -27,11 +27,10 @@ namespace WebAPI
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        //IoC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<ICarService,CarManager>();
+            services.AddSingleton<ICarService, CarManager>();
             services.AddSingleton<IBrandService, BrandManager>();
             services.AddSingleton<IColorService, ColorManager>();
             services.AddSingleton<ICustomerService, CustomerManager>();
