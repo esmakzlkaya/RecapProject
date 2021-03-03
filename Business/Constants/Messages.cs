@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Core.Entities.Concrete;
+using Core.Utilities.Security.JWT;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -20,5 +22,11 @@ namespace Business.Constants
         public static string CustomerAdded = "\nMüşteri eklendi.\n";
 
         public static string CarImageLimitExceed = "\nArabaya ait 5 adet resim bulunmakta, daha fazla resim yükleyemezsiniz.\n";
+
+        public static string UserAlreadyExists = "\nKullanıcı zaten var.\n";
+        public static string UserNotFound = "\nKullanıcı bulunamadı.\n";
+
+        public static string PasswordError = "\nParola hatalı.\n";
+        public static string UserRegistered = "\nKullanıcı kayıt edildi.\n";
     }
 }

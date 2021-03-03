@@ -6,6 +6,7 @@ using Entities.Concrete;
 using System;
 using DataAccess.Concrete.InMemory;
 using DataAccess.Concrete.EntityFramework;
+using Core.Entities.Concrete;
 
 namespace ConsoleUI
 {
