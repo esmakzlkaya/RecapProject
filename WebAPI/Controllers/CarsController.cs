@@ -38,7 +38,7 @@ namespace WebAPI.Controllers
             {
                 return Ok(result);
             }
-            return BadRequest(result);
+            return BadRequest(result.Message);
         }
         [HttpGet("getcarsbybrandid")]
         public IActionResult GetCarsByBrandId(int brandId)
@@ -94,6 +94,16 @@ namespace WebAPI.Controllers
         public IActionResult Delete(Car car)
         {
             var result = _carService.Delete(car);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpPost("transaction")]
+        public IActionResult AddTransactionalTest(Car car)
+        {
+            var result = _carService.AddTransactionalTest(car);
             if (result.Success)
             {
                 return Ok(result);

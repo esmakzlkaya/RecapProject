@@ -21,8 +21,8 @@ namespace DataAccess.Concrete.EntityFramework
                              select new CustomerDetailDto
                              {
                                  CompanyName = c.CompanyName,
-                                 Email = u.Email,
-                                 Password = u.Password
+                                 Email = u.Email
+                                 //, Password = u.Password
                              };
                 return result.ToList();
             }

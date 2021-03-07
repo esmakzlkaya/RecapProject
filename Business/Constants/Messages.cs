@@ -2,6 +2,7 @@
 using Core.Utilities.Security.JWT;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace Business.Constants
@@ -28,5 +29,9 @@ namespace Business.Constants
 
         public static string PasswordError = "\nParola hatalı.\n";
         public static string UserRegistered = "\nKullanıcı kayıt edildi.\n";
+
+        public static string AuthorizationDenied = "\nYetkilendirme reddedildi.\n";
+        public static string AccessTokenCreated = "\n Access Token oluşturuldu.\n";
+        public static string TransactionSucceed="\nTransaction işlemi başarılı.\n";
     }
 }

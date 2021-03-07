@@ -43,14 +43,14 @@ namespace Core.Utilities.Security.JWT
             var jwt = new JwtSecurityToken(
                 issuer: tokenOptions.Issuer,
                 audience: tokenOptions.Audience,
-                claims: GetClaims(user,operationClaims),
+                claims: SetClaims(user,operationClaims),
                 expires: _accessTokenExpiration,
                 notBefore: DateTime.Now,
                 signingCredentials: signingCredentials
                 );
             return jwt;
         }
-        private IEnumerable<Claim> GetClaims(User user, List<OperationClaim> operationClaims)
+        private IEnumerable<Claim> SetClaims(User user, List<OperationClaim> operationClaims)
         {
             var claims = new List<Claim>();
             claims.AddEmail(user.Email);

@@ -45,11 +45,11 @@ namespace WebAPI.Controllers
             }
             var userToRegister = _authService.Register(userForRegisterDto,userForRegisterDto.Password);
             var accessToken = _authService.CreateAccessToken(userToRegister.Data);
-            if (!accessToken.Success)
+            if (accessToken.Success)
             {
-                return BadRequest(accessToken.Message);
+                return Ok(accessToken.Data);
             }
-            return Ok(accessToken.Data);
+            return BadRequest(accessToken.Message);
         }
     }
 }

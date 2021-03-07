@@ -68,20 +68,7 @@ namespace ConsoleUI
             }
             Console.WriteLine(result.Message);
         }
-        private static void AddUser(UserManager userManager)
-        {
-            var result = userManager.Add(new User
-            {
-                Id = 2,
-                FirstName = "Çetinkaya  ",
-                LastName = "Rent A Car",
-                Email = "cetinkayarentacar@gmail.com",
-                Password = "22cetinkaya"
-
-            });
-
-            Console.WriteLine(result.Message);
-        }
+        
         private static void AddCustomer(CustomerManager customerManager)
         {
             var result = customerManager.Add(new Customer

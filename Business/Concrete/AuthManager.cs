@@ -24,8 +24,8 @@ namespace Business.Concrete
         public IDataResult<AccessToken> CreateAccessToken(User user)
         {
            var claims= _userService.GetClaims(user);
-            var accessToken = _tokenHelper.CreateToken(user, claims.Data);
-            return new SuccessDataResult<AccessToken>(accessToken);
+            var accessToken = _tokenHelper.CreateToken(user, claims);
+            return new SuccessDataResult<AccessToken>(accessToken,Messages.AccessTokenCreated);
         }
 
         public IDataResult<User> Login(UserForLoginDto loginDto)
@@ -35,33 +35,33 @@ namespace Business.Concrete
             {
                 return new ErrorDataResult<User>(Messages.UserAlreadyExists);
             }
-            if (!HashingHelper.VerifyPasswordHash(loginDto.Password, userToCheck.Data.PasswordHash, userToCheck.Data.PasswordSalt))
+            if (!HashingHelper.VerifyPasswordHash(loginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
             {
                 return new ErrorDataResult<User>(Messages.PasswordError);
             }
-            return new SuccessDataResult<User>();
+            return new SuccessDataResult<User>(userToCheck);
         }
 
         public IDataResult<User> Register(UserForRegisterDto registerDto, string password)
         {
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
-            _userService.Add(new User
+            var user = new User
             {
-                Email=registerDto.Email,
-                 FirstName=registerDto.FirstName,
-                  LastName=registerDto.LastName,
-                   PasswordHash=passwordHash,
-                   PasswordSalt=passwordSalt,
-                   Status=true
-            });
-            return new SuccessDataResult<User>(Messages.UserRegistered);
+                Email = registerDto.Email,
+                FirstName = registerDto.FirstName,
+                LastName = registerDto.LastName,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                Status = true
+            };
+            _userService.Add(user);
+            return new SuccessDataResult<User>(user,Messages.UserRegistered);
         }
 
         public IResult UserExists(string email)
         {
-            var userToCheck = _userService.GetByMail(email);
-            if (userToCheck!=null)
+            if (_userService.GetByMail(email) != null)
             {
                 return new ErrorResult(Messages.UserAlreadyExists);
             }
