@@ -26,7 +26,7 @@ namespace ConsoleUI
 
             // AddUser(userManager);
             // AddCustomer(customerManager);
-             AddRental(rentalManager);
+             //AddRental(rentalManager);
            // GetAllRentalDetails(rentalManager);
 
             // Console.WriteLine("\n-----------Car-----------\n");
@@ -58,16 +58,16 @@ namespace ConsoleUI
             //  UpdateBrand(brandManager);
             //  DeleteBrand(brandManager);*/
         }
-        private static void GetAllRentalDetails(RentalManager rentalManager)
-        {
-            var result = rentalManager.GetAllRentalDetails();
+        //private static void GetAllRentalDetails(RentalManager rentalManager)
+        //{
+        //    var result = rentalManager.GetAllRentalDetails();
 
-            foreach (var rental in result.Data)
-            {
-                Console.WriteLine(rental.Id + " - " + rental.CarId + " - " + rental.CarName + " - " + rental.CustomerName + " - " + rental.DailyPrice + " - " + rental.RentDate + " - " + rental.ReturnDate + "\n");
-            }
-            Console.WriteLine(result.Message);
-        }
+        //    foreach (var rental in result.Data)
+        //    {
+        //        Console.WriteLine(rental.Id + " - " + rental.CarId + " - " + rental.CarName + " - " + rental.CustomerName + " - " + rental.DailyPrice + " - " + rental.RentDate + " - " + rental.ReturnDate + "\n");
+        //    }
+        //    Console.WriteLine(result.Message);
+        //}
         
         private static void AddCustomer(CustomerManager customerManager)
         {
@@ -80,19 +80,19 @@ namespace ConsoleUI
 
             Console.WriteLine(result.Message);
         }
-        private static void AddRental(RentalManager rentalManager)
-        {
-            var result = rentalManager.Add(new Rental
-            {
-                Id = 18,
-                CarId = 1,
-                CustomerId = 2,
-                RentDate = DateTime.Now,
-                ReturnDate=null
-            });
+        //private static void AddRental(RentalManager rentalManager)
+        //{
+        //    var result = rentalManager.Add(new Rental
+        //    {
+        //        Id = 18,
+        //        CarId = 1,
+        //        CustomerId = 2,
+        //        RentDate = DateTime.Now,
+        //        ReturnDate=null
+        //    });
 
-            Console.WriteLine(result.Message);
-        }
+        //    Console.WriteLine(result.Message);
+        //}
         private static void GetAllCarDetails(CarManager carManager)
         {
             var result = carManager.GetAllCarDetails();

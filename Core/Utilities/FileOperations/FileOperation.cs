@@ -12,6 +12,7 @@ namespace Core.Utilities.FileOperations
         {
             var result = FilePath(file);
             var directoryPath = Path.GetTempFileName();
+            var imagePath = result.Path2;
             if (file.Length > 0)
             {
                 using (var stream = new FileStream(directoryPath, FileMode.Create))
@@ -21,7 +22,7 @@ namespace Core.Utilities.FileOperations
             }
 
             File.Move(directoryPath, result.newPath);
-            return result.Path2;
+            return imagePath.Replace("\\", "/");
         }
         public static string UpdateImageFile(string oldPath, IFormFile file)
         {
@@ -37,7 +38,7 @@ namespace Core.Utilities.FileOperations
             }
             File.Delete(oldPath);
 
-            return imagePath;
+            return imagePath.Replace("\\", "/");
         }
 
         public static string DeleteImageFile(string imagePath)
@@ -50,9 +51,10 @@ namespace Core.Utilities.FileOperations
             System.IO.FileInfo fileInfo = new System.IO.FileInfo(file.FileName);
             var fileExtension = fileInfo.Extension;
             var fileName = Guid.NewGuid().ToString("N") + fileExtension;
-            string result = $@"{Environment.CurrentDirectory + @"\wwwroot\Images"}\{fileName}";
+            var fileName2= $@"{@"\images"}\{fileName}";
+    string result = $@"{Environment.CurrentDirectory + @"\wwwroot"+ fileName2}";
 
-            return (result, $"\\Images\\{fileName}");
+            return (result,fileName2);
         }
     }
 }

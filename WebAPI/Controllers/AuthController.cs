@@ -33,7 +33,7 @@ namespace WebAPI.Controllers
             {
                 return BadRequest(accessToken.Message);
             }
-            return Ok(accessToken.Data);
+            return Ok(accessToken);
         }
         [HttpPost("register")]
         public ActionResult Register(UserForRegisterDto userForRegisterDto)

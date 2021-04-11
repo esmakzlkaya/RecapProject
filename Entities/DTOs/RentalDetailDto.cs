@@ -11,7 +11,8 @@ namespace Entities.DTOs
         public int CarId { get; set; }
         public string CarName { get; set; }
         public string CustomerName { get; set; }
-        public DateTime RentDate { get; set; }
+        public DateTime RentStartDate { get; set; }
+        public DateTime RentEndDate { get; set; }
         public DateTime? ReturnDate { get; set; }
         public decimal DailyPrice { get; set; }
 

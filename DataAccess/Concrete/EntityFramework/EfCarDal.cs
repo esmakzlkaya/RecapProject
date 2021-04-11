@@ -26,14 +26,63 @@ namespace DataAccess.Concrete.EntityFramework
                              on c.BrandId equals b.Id
                              join co in context.Colors
                              on c.ColorId equals co.Id
+                             join ci in context.CarImages
+                             on c.Id equals ci.CarId
                              select new CarDetailDto
                              {
                                  CarName = c.Description,
                                  BrandName = b.Name,
                                  ColorName = co.Name,
-                                 DailyPrice = c.DailyPrice
+                                 DailyPrice = c.DailyPrice,
+                                 ImagePath = ci.ImagePath,
+                                 FindeksScore=c.FindeksScore
                              };
                 return result.ToList();
+
+            }
+        }
+        public List<CarDetailDto> GetCarDetailById(int carId)
+        {
+            using (RentACar_ReCapContext context = new RentACar_ReCapContext())
+            {
+                var result = from c in context.Cars
+                             join b in context.Brands
+                             on c.BrandId equals b.Id
+                             join co in context.Colors
+                             on c.ColorId equals co.Id
+                             select new CarDetailDto 
+                             {
+                                 CarId=c.Id,
+                                 CarName = c.Description,
+                                 BrandName = b.Name,
+                                 ColorName = co.Name,
+                                 DailyPrice = c.DailyPrice,
+                                 FindeksScore = c.FindeksScore
+                             };
+                return result.Where(c=>c.CarId==carId).ToList();
+
+            }
+        }
+
+        public CarDetailDto GetCarDetailByIdSingle(int carId)
+        {
+            using (RentACar_ReCapContext context = new RentACar_ReCapContext())
+            {
+                var result = from c in context.Cars
+                             join b in context.Brands
+                             on c.BrandId equals b.Id
+                             join co in context.Colors
+                             on c.ColorId equals co.Id
+                             select new CarDetailDto
+                             {
+                                 CarId = c.Id,
+                                 CarName = c.Description,
+                                 BrandName = b.Name,
+                                 ColorName = co.Name,
+                                 DailyPrice = c.DailyPrice,
+                                 FindeksScore = c.FindeksScore
+                             };
+                return result.FirstOrDefault(c => c.CarId == carId);
 
             }
         }

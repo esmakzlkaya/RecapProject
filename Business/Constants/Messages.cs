@@ -33,5 +33,8 @@ namespace Business.Constants
         public static string AuthorizationDenied = "\nYetkilendirme reddedildi.\n";
         public static string AccessTokenCreated = "\n Access Token oluşturuldu.\n";
         public static string TransactionSucceed="\nTransaction işlemi başarılı.\n";
+
+        public static string PaymentSucceed = "\nÖdeme işlemi başarılı.\n";
+        
     }
 }

@@ -39,7 +39,7 @@ namespace Business.Concrete
         public IResult Delete(CarImage carImage)
         {
             var oldImagePath = _carImageDal.Get(ci => ci.Id == carImage.Id).ImagePath;
-            var oldPath = $@"{Environment.CurrentDirectory + @"\wwwroot"}\{oldImagePath}";
+            var oldPath = $@"{Environment.CurrentDirectory}\{oldImagePath}";
             FileOperation.DeleteImageFile(oldPath);
             _carImageDal.Delete(carImage);
             return new SuccessResult();
@@ -60,14 +60,14 @@ namespace Business.Concrete
             var result = BusinessRules.Run(CheckIfImageExists(carImage));
             if (result != null)
             {
-                return new ErrorDataResult<List<CarImage>>(_carImageDal.GetAll(ci=>ci.CarId==carId));
+                return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(ci=>ci.CarId==carId));
             }
             return new SuccessDataResult<List<CarImage>>(carImage);
         }
         public IResult Update(IFormFile file, CarImage carImage)
         {
             var oldImagePath = _carImageDal.Get(ci => ci.Id == carImage.Id).ImagePath;
-            var oldPath = $@"{Environment.CurrentDirectory + @"\wwwroot"}\{oldImagePath}";
+            var oldPath = $@"{Environment.CurrentDirectory}\{oldImagePath}";
             carImage.ImagePath = FileOperation.UpdateImageFile(oldPath, file);
             carImage.Date = DateTime.Now;
             _carImageDal.Update(carImage);
@@ -85,7 +85,7 @@ namespace Business.Concrete
         }
         private IResult CheckIfImageExists(List<CarImage> carImage)
         {
-            var defaultPath = "\\Images\\default.jpg";
+            var defaultPath = "\\wwwroot\\images\\default.jpg";
             for (int i = 0; i < carImage.Count; i++)
             {
                 if (carImage[i].ImagePath == "")

@@ -28,7 +28,8 @@ namespace DataAccess.Concrete.EntityFramework
                                  CarName = c.Description,
                                  CustomerName = cu.CompanyName,
                                  DailyPrice = c.DailyPrice,
-                                 RentDate = r.RentDate,
+                                 RentStartDate = r.RentStartDate,
+                                 RentEndDate=r.RentEndDate,
                                  ReturnDate = r.ReturnDate
                              };
                 return result.ToList();

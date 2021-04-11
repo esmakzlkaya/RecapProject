@@ -33,7 +33,7 @@ namespace Business.Concrete
             var userToCheck = _userService.GetByMail(loginDto.Email);
             if (userToCheck==null)
             {
-                return new ErrorDataResult<User>(Messages.UserAlreadyExists);
+                return new ErrorDataResult<User>(Messages.UserNotFound);
             }
             if (!HashingHelper.VerifyPasswordHash(loginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
             {
